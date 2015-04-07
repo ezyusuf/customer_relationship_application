@@ -6,9 +6,9 @@ require_relative 'rolodex'
 
 class CRM
 
-  def self.run(name)
-    crm = CRM.new(name)
-    crm.main_menu
+  def self.run
+    a_crm_app = new
+    a_crm_app.main_menu
   end
 
   def initialize
@@ -36,6 +36,14 @@ class CRM
     exit if user_selection == 7
   end
 
+  def main_menu
+    while true
+    print_main_menu
+    user_selection = gets.chomp.to_i
+    call_option (user_selection)
+    end
+  end
+
   def add_new_contact
     puts "Enter your first name"
     first_name = gets.chomp
@@ -45,20 +53,33 @@ class CRM
     email = gets.chomp
     puts "Enter a note"
     note = gets.chomp
-    @rolodex.add_contact(first_name, last_name, email, note)
+    contact = Contact.new(first_name, last_name, email, note)
+    @rolodex.add_contact(contact)
+    # @rolodex.add_contact(first_name, last_name, email, note)
+    main_menu
   end
+
+  def display_contact
+    puts "Put id of user you want to view"
+    contact_id = gets.chomp.to_i
+    contact = @rolodex.find(contact_id)
+    puts contact
+    main_menu
+  end
+
+end
+
+a_crm_app = CRM.new
+a_crm_app.main_menu
+
 
   # def modify_contact
   #   @rolodex.update_contact
   # end
 
 
-  def main_menu
-    print_main_menu
-    user_selection = gets.chomp.to_i
-    call_option (user_selection)
-  end
-end
+
+
 
 
 # This is your "Data Storage" class.
@@ -115,8 +136,8 @@ end
 
 #just main_menu would not work as we have to substantiate when we make a class so we use .new method below
 
-a_crm_app = CRM.new("ezzz")
-a_crm_app.main_menu
+# a_crm_app = CRM.new
+# a_crm_app.main_menu
 
 # CRM.run("my CRM")
 

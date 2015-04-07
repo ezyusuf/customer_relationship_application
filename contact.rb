@@ -9,13 +9,12 @@ class Contact
     @note = note
   end
 
-  # def email
-  #   @email
-  # end
-
-  # def note =(note)
-  #   @note = note
-  # end
+  def to_s
+    puts "First Name:#{@first_name}"
+    puts "Last Name:#{@last_name}"
+    puts "Email:#{@email}"
+    puts "Note:#{@note}"
+  end
 
 end
 
